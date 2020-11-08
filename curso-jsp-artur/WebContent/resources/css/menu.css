@@ -1,0 +1,21 @@
+@charset "ISO-8859-1";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.menu{
+	text-align: left;
+}
+
+.sair{
+	align-content: center;
+}
+
+.menuDiv{
+	width: 100%;
+	height: 50px;
+	background: red;
+	
+}
