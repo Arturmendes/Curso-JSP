@@ -35,11 +35,11 @@ public class ProdutoServlet extends HttpServlet {
 		//String qtd = request.getParameter("quantidade");
 		//String valor = request.getParameter("valor");
 		
-		String acao = request.getParameter("acao");
+		String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listarTodos";
 		
-		System.out.println("Ação no doGet: " + acao);
+		System.out.println("AÃ§Ã£o no doGet: " + acao);
 		
-		if(acao.equalsIgnoreCase("carregar")) {		
+		if(acao.equalsIgnoreCase("carregar") || acao.equalsIgnoreCase("listarTodos")) {		
 			
 			request.setAttribute("produtos", daoProduto.listar());
 			
@@ -95,7 +95,7 @@ public class ProdutoServlet extends HttpServlet {
 		System.out.println("Nome Produto: " + nome);
 		System.out.println("Quantidade Produto: " + qtd);
 		System.out.println("Valor Produto: " + valor);
-		System.out.println("Ação Produto: " + acao);
+		System.out.println("AÃ§Ã£o Produto: " + acao);
 		*/
 		
 		if(acao == null || acao.isEmpty()) {
@@ -112,7 +112,7 @@ public class ProdutoServlet extends HttpServlet {
 				request.setAttribute("produto", produto);
 				request.setAttribute("produtos", daoProduto.listar());				
 			}else if(id == null || id.isEmpty()) {//se id null ou vazio cadastra o produto
-				if(daoProduto.validarProduto(nome)) {//se não existir um produto com mesmo nome, entao cadastra
+				if(daoProduto.validarProduto(nome)) {//se nï¿½o existir um produto com mesmo nome, entao cadastra
 					System.out.println("Produto validado, pode cadastrar");
 					daoProduto.cadastrarProduto(produto);							
 					request.setAttribute("produtos", daoProduto.listar());	

@@ -45,19 +45,27 @@ public class UsuarioServlet extends HttpServlet {
 		
 		
 		String id = request.getParameter("id");
-		String acao = request.getParameter("acao");
+		String acao = request.getParameter("acao") != null ? request.getParameter("acao"): "listarTodos";
 		
 		
-		if(acao.equalsIgnoreCase("carregar")) {
+		if(acao.equalsIgnoreCase("carregar") || acao.equalsIgnoreCase("listarTodos")) {
 			RequestDispatcher view = request.getRequestDispatcher("cadastro_usuario.jsp");		
 			request.setAttribute("usuarios", daoUsuario.listar());			
 			view.forward(request, response);			
 		}else if(acao.equalsIgnoreCase("delete")) {
-			daoUsuario.deleteUsuario(Long.parseLong(id));
-			RequestDispatcher view = request.getRequestDispatcher("cadastro_usuario.jsp");		
+			if(!request.getParameter("login").equalsIgnoreCase("admin")) {
+				daoUsuario.deleteUsuario(Long.parseLong(id));
+				RequestDispatcher view = request.getRequestDispatcher("cadastro_usuario.jsp");		
+				request.setAttribute("usuarios", daoUsuario.listar());
+				
+				view.forward(request, response);				
+			}
+			
+			request.setAttribute("msg", "admin nÃ£o pode ser apagado");
 			request.setAttribute("usuarios", daoUsuario.listar());
 			
-			view.forward(request, response);			
+			request.getRequestDispatcher("cadastro_usuario.jsp").forward(request, response);
+						
 		}else if(acao.equalsIgnoreCase("editar")) {
 			
 			BeanUsuario usuarioConsultado = daoUsuario.consultarUsuario(id);
@@ -169,7 +177,7 @@ public class UsuarioServlet extends HttpServlet {
 		
 		
 		
-		/*Início file upload de imagens e pdf*/
+		/*Inï¿½cio file upload de imagens e pdf*/
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			Part imagemFoto = request.getPart("foto");
@@ -277,7 +285,7 @@ public class UsuarioServlet extends HttpServlet {
 					usuario.setId(Long.parseLong(id));	
 					daoUsuario.editarUsuario(usuario);						
 					request.setAttribute("usuarios", daoUsuario.listar());
-					request.setAttribute("msg", "Usuário " + usuario.getNome() + " editado!!!");
+					request.setAttribute("msg", "Usuï¿½rio " + usuario.getNome() + " editado!!!");
 					
 				}else {
 					usuario.setId(Long.parseLong(id));

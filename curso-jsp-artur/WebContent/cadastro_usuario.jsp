@@ -87,7 +87,7 @@
 	</form>
 	<div class="container">
 		<table class="responsive-table">
-			<caption>Usuários cadastrados</caption>
+			<caption>Lista de usuários cadastrados</caption>
 				<tr>
 					<th>Foto</th>
 					<th>Currículo</th>

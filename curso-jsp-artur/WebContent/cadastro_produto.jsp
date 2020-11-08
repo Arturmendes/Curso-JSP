@@ -59,7 +59,7 @@
 	</form>
 	<div class="container">
 		<table class="responsive-table">
-			<caption>Produtos cadastrados</caption>
+			<caption>Lista de produtos cadastrados</caption>
 			<tr>
 				<th>Id</th>
 				<th>Nome</th>
