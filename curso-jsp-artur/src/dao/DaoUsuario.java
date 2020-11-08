@@ -21,7 +21,7 @@ public class DaoUsuario {
 	}
 	
 	public void cadastrarUsuario(BeanUsuario usuario) {
-		System.out.println("Cadastro de Usu·rio");
+		System.out.println("Cadastro de UsuÔøΩrio");
 		String sql = "insert into usuario(login, senha, nome, telefone, cep, rua, bairro, numero, cidade, estado, fotobase64, contenttype, curriculobase64, contenttypecurriculo, fotobase64miniatura) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
@@ -45,7 +45,7 @@ public class DaoUsuario {
 			insert.execute();
 			connection.commit();			
 		} catch (Exception e) {
-			System.out.println("Usuario n„o cadastrado");
+			System.out.println("Usu√°rio n√£o cadastrado");
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
@@ -60,7 +60,7 @@ public class DaoUsuario {
 	public List<BeanUsuario> listar(){
 		List<BeanUsuario> lista = new ArrayList<BeanUsuario>();
 		
-		String sql = "select * from usuario";
+		String sql = "select * from usuario where login <> 'admin'";
 		
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
@@ -93,7 +93,7 @@ public class DaoUsuario {
 	}
 	
 	public void deleteUsuario(Long id) {
-		String sql = "delete from usuario where id = " + id;
+		String sql = "delete from usuario where id = " + id + " and login <> 'admin'";
 		
 		 
 		try {
@@ -101,7 +101,7 @@ public class DaoUsuario {
 			delete.execute();
 			connection.commit();
 		} catch (SQLException e) {
-			System.out.println("Usuario " + id + ", n„o excluido.");
+			System.out.println("Usu√°rio " + id + ", n√£o excluido.");
 			e.printStackTrace();
 			try {
 				connection.rollback();
@@ -137,7 +137,7 @@ public class DaoUsuario {
 			connection.commit();
 			
 		} catch (SQLException e) {
-			System.out.println("Usu·rio n„o atualizado");
+			System.out.println("Usu√°rio n√£o atualizado");
 			e.printStackTrace();
 			try {
 				connection.rollback();
